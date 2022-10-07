@@ -17,11 +17,12 @@ public class DataReader {
         String name = sc.nextLine();
         System.out.println("Nazwisko: ");
         String lastName = sc.nextLine();
-        return new Student(name, lastName, Student.getNumberId()+1);
+        return new Student(name, lastName, Student.INDEX_COUNT);
     }
 
     public int getIn(){
         int number = sc.nextInt();
+        sc.nextLine();
         return number;
     }
 }

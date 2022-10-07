@@ -1,7 +1,8 @@
 package Data;
 
 public class Student {
-    public static int NUMBER_ID=0;
+    public static int NUMBER_ID=0; //informacja o liczbie studentów
+    public static int INDEX_COUNT=1; //unikatowy numer indeksu studenta
     private String Name;
     private String LastName;
     private int Index;
