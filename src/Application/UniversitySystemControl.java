@@ -54,7 +54,20 @@ public class UniversitySystemControl {
     private void deleteStudent(){
         System.out.println("Podaj numer studenta: ");
         int number = dataReader.getIn();
-        studentBase.deleteStudent(number);
+        studentBase.areYouSureDelete(number);
+        String string = dataReader.getInString();
+        switch (string){
+            case "t":
+                studentBase.deleteStudent(number);
+                break;
+            case "n":
+                System.out.println("Anulowano usuwanie");
+        }
+
+        //if (dataReader.getInString()=="t")
+        //studentBase.deleteStudent(number);
+        //else
+         //   System.out.println("ok");
     }
 
     private void exit(){

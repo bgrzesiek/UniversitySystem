@@ -25,4 +25,8 @@ public class DataReader {
         sc.nextLine();
         return number;
     }
+    public String getInString(){
+        String string = sc.nextLine();
+        return string;
+    }
 }
