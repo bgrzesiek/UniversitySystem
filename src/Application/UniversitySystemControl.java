@@ -52,27 +52,30 @@ public class UniversitySystemControl {
     }
 
     private void deleteStudent(){
-        System.out.println("Podaj numer studenta: ");
-        int number = dataReader.getIn();
-        studentBase.areYouSureDelete(number);
-        String string = dataReader.getInString();
-        switch (string){
-            case "t":
-                studentBase.deleteStudent(number);
-                break;
-            case "n":
-                System.out.println("Anulowano usuwanie");
+        if (isStudentListNull()){
+            System.out.println("Lista studentów jest pusta");
+            System.out.println();
+        }else if (Student.getNumber_id() !=0){
+            System.out.println("Podaj numer studenta: ");
+            int number = dataReader.getIn();
+            studentBase.areYouSureDelete(number);
+            String string = dataReader.getInString();
+            switch (string) {
+                case "t":
+                    studentBase.deleteStudent(number);
+                    break;
+                case "n":
+                    System.out.println("Anulowano usuwanie");
+                }
         }
-
-        //if (dataReader.getInString()=="t")
-        //studentBase.deleteStudent(number);
-        //else
-         //   System.out.println("ok");
     }
 
     private void exit(){
         System.out.println("Do zobaczenia!");
         dataReader.close();
+    }
+    private boolean isStudentListNull(){
+        return Student.getNumber_id() ==0;
     }
 }
 

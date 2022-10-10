@@ -1,8 +1,8 @@
 package Data;
 
 public class Student {
-    public static int NUMBER_ID=0; //informacja o liczbie studentów
-    public static int INDEX_COUNT=1; //unikatowy numer indeksu studenta
+    private static int Number_id=0; //informacja o liczbie studentów
+    private static int Index_Count=1; //unikatowy numer indeksu
     private String Name;
     private String LastName;
     private int Index;
@@ -14,30 +14,23 @@ public class Student {
         Index = index;
     }
 
-    public String getName() {
-        return Name;
-    }
+    public String getName() {return Name;}
 
-    public void setName(String name) {
-        Name = name;
-    }
+    public void setName(String name) {Name = name;}
 
-    public String getLastName() {
-        return LastName;
-    }
+    public String getLastName() {return LastName;}
 
-    public void setLastName(String lastName) {
-        LastName = lastName;
-    }
+    public void setLasName(String lastName) {LastName = lastName;}
 
-    public int getIndex() {
-        return Index;
-    }
+    public int getIndex() {return Index;}
 
-    public void setIndex(int index) {
-        this.Index = index;
-    }
-    public static int getNumberId() {
-        return NUMBER_ID;
-    }
+    public void setIndex(int index) {this.Index = index;}
+
+    public static int getNumber_id() {return Number_id;}
+
+    public static void setNumber_id(int number_id) {Student.Number_id = number_id;}
+
+    public static int getIndex_Count() {return Index_Count;}
+
+    public static void setIndex_Count(int index_Count) {Index_Count = index_Count;}
 }
