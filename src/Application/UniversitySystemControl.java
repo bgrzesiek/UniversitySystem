@@ -9,7 +9,8 @@ public class UniversitySystemControl {
     private static final int EXIT = 0;
     private static final int ADD_STUDENT = 1;
     private static final int DEL_STUDENT = 2;
-    private static final int PRINT_STUDENT_LIST = 3;
+    private static final int RENAME_STUDENT=3;
+    private static final int PRINT_STUDENT_LIST = 4;
 
     private DataReader dataReader = new DataReader();
     private StudentBase studentBase = new StudentBase();
@@ -26,6 +27,9 @@ public class UniversitySystemControl {
                 case DEL_STUDENT:
                     deleteStudent();
                     break;
+                case RENAME_STUDENT:
+                    renameStudent();
+                    break;
                 case PRINT_STUDENT_LIST:
                     studentBase.printAllInfo();
                     break;
@@ -40,15 +44,31 @@ public class UniversitySystemControl {
 
     private void printOption(){
         System.out.println("Wybierz opcje:");
-        System.out.println( EXIT + "- wyjście z programu");
+        System.out.println(EXIT + "- wyjście z programu");
         System.out.println(ADD_STUDENT + "- dodaj studenta");
         System.out.println(DEL_STUDENT + "- usuń studenta");
+        System.out.println(RENAME_STUDENT + "- zmień dane studenta");
         System.out.println(PRINT_STUDENT_LIST + "- wyświetl listę studentów");
     }
 
     private void addStudent(){
         Student student = dataReader.readAndCreateStudent();
-        studentBase.AddStudent(student);
+        studentBase.areYouSureAddNewStudent(student.getName(), student.getLastName());
+        String string = dataReader.getInString();
+        switch (string) {
+            case "t":
+                studentBase.AddStudent(student);
+                break;
+            case "n":
+                System.out.println("Anulowano dodawanie");
+                System.out.println();
+        }
+    }
+
+    private void renameStudent(){
+        System.out.println("Podaj numer indeksu studenta:");
+        int number = dataReader.getIn();
+        studentBase.areYouSureRenameStudent(number);
     }
 
     private void deleteStudent(){
@@ -56,7 +76,7 @@ public class UniversitySystemControl {
             System.out.println("Lista studentów jest pusta");
             System.out.println();
         }else if (Student.getNumber_id() !=0){
-            System.out.println("Podaj numer studenta: ");
+            System.out.println("Podaj numer indeksu studenta: ");
             int number = dataReader.getIn();
             studentBase.areYouSureDelete(number);
             String string = dataReader.getInString();
@@ -66,7 +86,8 @@ public class UniversitySystemControl {
                     break;
                 case "n":
                     System.out.println("Anulowano usuwanie");
-                }
+                    System.out.println();
+            }
         }
     }
 
