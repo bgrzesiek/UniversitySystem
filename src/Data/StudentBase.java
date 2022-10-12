@@ -25,7 +25,7 @@ public class StudentBase {
 
     public void areYouSureRenameStudent(int indeks) {
         System.out.println("Czy na pewno zmienić dane studenta " + students[getStudentTableNumber(indeks)].getName() + " "
-                            + students[getStudentTableNumber(indeks)].getLastName() + " ?");
+                + students[getStudentTableNumber(indeks)].getLastName() + " ?");
     }
 
     public void areYouSureDelete(int indeks) {
@@ -37,11 +37,11 @@ public class StudentBase {
         }
     }
 
-    public void deleteStudent(int number) {
-        System.out.println("Usunięto " + " " + students[getStudentTableNumber(number)].getName() + " "
-                            + students[getStudentTableNumber(number)].getLastName() + " z listy studentów.");
-        int i = getStudentTableNumber(number);
-        students[getStudentTableNumber(number)] = null;
+    public void deleteStudent(int indeks) {
+        System.out.println("Usunięto " + " " + students[getStudentTableNumber(indeks)].getName() + " "
+                + students[getStudentTableNumber(indeks)].getLastName() + " z listy studentów.");
+        int i = getStudentTableNumber(indeks);
+        students[getStudentTableNumber(indeks)] = null;
         do {
             students[i] = students[i + 1];
             i++;
@@ -57,7 +57,7 @@ public class StudentBase {
         if (Student.getNumber_id() == 0) {
             System.out.println("Lista studentów jest pusta.");
             System.out.println();
-        } else if (Student.getNumber_id() != 0) {
+        } else {
             System.out.println("Aktualnie studiuje " + Student.getNumber_id() + " " + "studentow.");
             System.out.println("Lista:");
             int i = 0;
@@ -72,18 +72,13 @@ public class StudentBase {
     }
 
     private int getStudentTableNumber(int indeks) {
-        int i=0;
-            while (students[i].getIndex() != indeks) {
-                if (students[i].getName()!=null) {
-                    if (students[i].getIndex() != indeks) {
-                    }
-                }else
-                    System.out.println("Nie ma w bazie studenta z takim numerem indeksu");
-                i++;
-            }
+        int i = 0;
+            while (students[i]!=null && students[i].getIndex() != indeks) {
+                if (students[i].getIndex() != indeks)
+                    i++;
+                }
         return i;
     }
-
 }
 
 
