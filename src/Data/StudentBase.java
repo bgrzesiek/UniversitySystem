@@ -7,16 +7,11 @@ public class StudentBase {
     Student[] students = new Student[MAX_STUDENT];
 
     public void AddStudent(Student student) {
-        if (Student.getNumber_id() < MAX_STUDENT) {
-            students[Student.getNumber_id()] = student;
-            System.out.println("Pomyślnie dodano do bazy nowego studenta " + students[Student.getNumber_id()].getName() + " " + students[Student.getNumber_id()].getLastName());
-            System.out.println();
-            Student.setNumber_id(Student.getNumber_id() + 1);
-            Student.setIndex_Count(Student.getIndex_Count() + 1);
-        } else {
-            System.out.println("Maksymalna liczba studentów została osiągnięta");
-        }
-
+        students[Student.getNumber_id()] = student;
+        System.out.println("Pomyślnie dodano do bazy nowego studenta " + students[Student.getNumber_id()].getName() + " " + students[Student.getNumber_id()].getLastName());
+        System.out.println();
+        Student.setNumber_id(Student.getNumber_id() + 1);
+        Student.setIndex_Count(Student.getIndex_Count() + 1);
     }
 
     public void areYouSureAddNewStudent(String name, String lastName) {
@@ -24,22 +19,18 @@ public class StudentBase {
     }
 
     public void areYouSureRenameStudent(int indeks) {
-        System.out.println("Czy na pewno zmienić dane studenta " + students[getStudentTableNumber(indeks)].getName() + " "
-                + students[getStudentTableNumber(indeks)].getLastName() + " ?");
+        System.out.println("Czy na pewno zmienić dane studenta " + getStudentInfo(indeks) + " ? t/n");
     }
 
     public void areYouSureDelete(int indeks) {
-        if (students[getStudentTableNumber(indeks)] == null) {
+        if (isStudentTableNumberNull(indeks)) {
             System.out.println("Brak studenta o takim numerze indeksu");
-        } else if (students[getStudentTableNumber(indeks)] != null) {
-            System.out.println("Czy na pewno usunąć studenta " + students[getStudentTableNumber(indeks)].getName() + " "
-                    + students[getStudentTableNumber(indeks)].getLastName() + " " + "z listy? t/n");
-        }
+        } else
+            System.out.println("Czy na pewno usunąć studenta " + getStudentInfo(indeks) + " " + "z listy? t/n");
     }
 
     public void deleteStudent(int indeks) {
-        System.out.println("Usunięto " + " " + students[getStudentTableNumber(indeks)].getName() + " "
-                + students[getStudentTableNumber(indeks)].getLastName() + " z listy studentów.");
+        System.out.println("Usunięto " + " " + getStudentInfo(indeks) + " z listy studentów.");
         int i = getStudentTableNumber(indeks);
         students[getStudentTableNumber(indeks)] = null;
         do {
@@ -49,7 +40,8 @@ public class StudentBase {
         Student.setNumber_id(Student.getNumber_id() - 1);  //zminejszenie liczby studentow
     }
 
-    public void renameStudent(int number) {
+    public void renameStudent(int indeks) {
+
 
     }
 
@@ -71,6 +63,10 @@ public class StudentBase {
         }
     }
 
+    private String getStudentInfo(int indeks){
+        return students[getStudentTableNumber(indeks)].getName() + " " + students[getStudentTableNumber(indeks)].getLastName();
+    }
+
     private int getStudentTableNumber(int indeks) {
         int i = 0;
             while (students[i]!=null && students[i].getIndex() != indeks) {
@@ -78,6 +74,14 @@ public class StudentBase {
                     i++;
                 }
         return i;
+    }
+
+    private boolean isStudentTableNumberNull(int indeks){
+        return students[getStudentTableNumber(indeks)] == null;
+    }
+
+    public boolean isStudenBaseFull(){
+        return Student.getNumber_id()!=MAX_STUDENT;
     }
 }
 

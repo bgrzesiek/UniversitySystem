@@ -20,6 +20,16 @@ public class DataReader {
         return new Student(name, lastName, Student.getIndex_Count());
     }
 
+    public String renameName() {
+        System.out.println("Podaj poprawne imię: ");
+        return  sc.nextLine();
+    }
+
+    public String renameLastname(){
+        System.out.println("Podaj poprawne nazwisko:");
+        return sc.nextLine();
+    }
+
     public int getIn(){
         int number = sc.nextInt();
         sc.nextLine();

@@ -52,30 +52,42 @@ public class UniversitySystemControl {
     }
 
     private void addStudent(){
-        Student student = dataReader.readAndCreateStudent();
-        studentBase.areYouSureAddNewStudent(student.getName(), student.getLastName());
+        if (studentBase.isStudenBaseFull()) {
+            Student student = dataReader.readAndCreateStudent();
+            studentBase.areYouSureAddNewStudent(student.getName(), student.getLastName());
+            String string = dataReader.getInString();
+            switch (string) {
+                case "t":
+                    studentBase.AddStudent(student);
+                    break;
+                case "n":
+                    System.out.println("Anulowano dodawanie");
+                    System.out.println();
+            }
+        }else
+            System.out.println("Nie można dodać nowego studenta.");
+            System.out.println("Maksymalna liczba studentów na liście (" + Student.getNumber_id() + ") została osiągnięta.");
+    }
+
+    private void renameStudent() {
+        System.out.println("Podaj numer indeksu studenta:");
+        int indeks = dataReader.getIn();
+        studentBase.areYouSureRenameStudent(indeks);
         String string = dataReader.getInString();
         switch (string) {
             case "t":
-                studentBase.AddStudent(student);
+                studentBase.renameStudent(indeks);
                 break;
             case "n":
-                System.out.println("Anulowano dodawanie");
+                System.out.println("Anulowano zmiany.");
                 System.out.println();
         }
     }
-
-    private void renameStudent(){
-        System.out.println("Podaj numer indeksu studenta:");
-        int number = dataReader.getIn();
-        studentBase.areYouSureRenameStudent(number);
-    }
-
     private void deleteStudent(){
         if (isStudentListNull()){
             System.out.println("Lista studentów jest pusta");
             System.out.println();
-        }else if (Student.getNumber_id() !=0){
+        }else {
             System.out.println("Podaj numer indeksu studenta: ");
             int number = dataReader.getIn();
             studentBase.areYouSureDelete(number);
@@ -96,7 +108,7 @@ public class UniversitySystemControl {
         dataReader.close();
     }
     private boolean isStudentListNull(){
-        return Student.getNumber_id() ==0;
+        return Student.getNumber_id()==0;
     }
 }
 
