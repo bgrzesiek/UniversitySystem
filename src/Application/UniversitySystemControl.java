@@ -31,7 +31,7 @@ public class UniversitySystemControl {
                     renameStudent();
                     break;
                 case PRINT_STUDENT_LIST:
-                    studentBase.printAllInfo();
+                    studentBase.printAllList();
                     break;
                 case EXIT:
                     exit();
@@ -51,8 +51,8 @@ public class UniversitySystemControl {
         System.out.println(PRINT_STUDENT_LIST + "- wyświetl listę studentów");
     }
 
-    private void addStudent(){
-        if (studentBase.isStudenBaseFull()) {
+    private void addStudent() {
+        if (studentBase.isStudentBaseFull()==false) {
             Student student = dataReader.readAndCreateStudent();
             studentBase.areYouSureAddNewStudent(student.getName(), student.getLastName());
             String string = dataReader.getInString();
@@ -61,26 +61,29 @@ public class UniversitySystemControl {
                     studentBase.AddStudent(student);
                     break;
                 case "n":
-                    System.out.println("Anulowano dodawanie");
-                    System.out.println();
+                    processResigned();
             }
-        }else
+        } else {
             System.out.println("Nie można dodać nowego studenta.");
             System.out.println("Maksymalna liczba studentów na liście (" + Student.getNumber_id() + ") została osiągnięta.");
+            System.out.println();
+        }
     }
 
     private void renameStudent() {
-        System.out.println("Podaj numer indeksu studenta:");
-        int indeks = dataReader.getIn();
+        int indeks = getIndeks();
         studentBase.areYouSureRenameStudent(indeks);
         String string = dataReader.getInString();
         switch (string) {
             case "t":
-                studentBase.renameStudent(indeks);
+                String newName = dataReader.renameName();
+                String newLastname = dataReader.renameLastname();
+                studentBase.renameStudent(indeks, newName, newLastname);
+                System.out.println("Zmieniono dane studenta");
+                System.out.println();
                 break;
             case "n":
-                System.out.println("Anulowano zmiany.");
-                System.out.println();
+               processResigned();
         }
     }
     private void deleteStudent(){
@@ -88,17 +91,16 @@ public class UniversitySystemControl {
             System.out.println("Lista studentów jest pusta");
             System.out.println();
         }else {
-            System.out.println("Podaj numer indeksu studenta: ");
-            int number = dataReader.getIn();
-            studentBase.areYouSureDelete(number);
+            int indeks = getIndeks();
+            studentBase.areYouSureDelete(indeks);
             String string = dataReader.getInString();
+
             switch (string) {
                 case "t":
-                    studentBase.deleteStudent(number);
+                    studentBase.deleteStudent(indeks);
                     break;
                 case "n":
-                    System.out.println("Anulowano usuwanie");
-                    System.out.println();
+                   processResigned();
             }
         }
     }
@@ -109,6 +111,14 @@ public class UniversitySystemControl {
     }
     private boolean isStudentListNull(){
         return Student.getNumber_id()==0;
+    }
+    private void processResigned(){
+        System.out.println("Anulowano");
+        System.out.println();
+    }
+    private int getIndeks(){
+        System.out.println("Podaj numer indeksu studenta:");
+        return dataReader.getIn();
     }
 }
 

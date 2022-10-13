@@ -24,8 +24,6 @@ public class Student {
 
     public int getIndex() {return Index;}
 
-    public void setIndex(int index) {this.Index = index;}
-
     public static int getNumber_id() {return Number_id;}
 
     public static void setNumber_id(int number_id) {Student.Number_id = number_id;}

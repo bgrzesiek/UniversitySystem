@@ -2,7 +2,7 @@ package Data;
 
 
 public class StudentBase {
-    private static final int MAX_STUDENT = 100;
+    private static final int MAX_STUDENT = 2;
 
     Student[] students = new Student[MAX_STUDENT];
 
@@ -12,6 +12,9 @@ public class StudentBase {
         System.out.println();
         Student.setNumber_id(Student.getNumber_id() + 1);
         Student.setIndex_Count(Student.getIndex_Count() + 1);
+        if (isStudentBaseFull()){
+            System.out.println("Osiągnięto maksymalną ilość studentów");
+        }
     }
 
     public void areYouSureAddNewStudent(String name, String lastName) {
@@ -37,27 +40,26 @@ public class StudentBase {
             students[i] = students[i + 1];
             i++;
         } while (students[i] != null); //Zlikwidowanie komórki null po usunieciu danego studenta poprzez przesuniecie wpisow z wyższych komórek tablicy do niższych.
-        Student.setNumber_id(Student.getNumber_id() - 1);  //zminejszenie liczby studentow
+            if (Student.getNumber_id()!=0)
+                Student.setNumber_id(Student.getNumber_id() - 1);  //zminejszenie liczby studentow
     }
 
-    public void renameStudent(int indeks) {
-
-
+    public void renameStudent(int indeks, String newName, String newLastname) {
+            students[getStudentTableNumber(indeks)].setName(newName);
+            students[getStudentTableNumber(indeks)].setLasName(newLastname);
     }
 
-    public void printAllInfo() {
+    public void printAllList() {
         if (Student.getNumber_id() == 0) {
             System.out.println("Lista studentów jest pusta.");
             System.out.println();
         } else {
-            System.out.println("Aktualnie studiuje " + Student.getNumber_id() + " " + "studentow.");
-            System.out.println("Lista:");
+            System.out.println("Aktualnie studiuje " + Student.getNumber_id() + " " + "studentow:");
             int i = 0;
             do {
                 System.out.println(i + 1 + ". " + "nr indeksu:" + " " + students[i].getIndex() + " " + students[i].getName() + " " + students[i].getLastName());
                 i++;
-            }
-            while (students[i] != null);
+            } while (students[i] != null || i!= students.length);
             System.out.println("Koniec listy");
             System.out.println();
         }
@@ -80,8 +82,8 @@ public class StudentBase {
         return students[getStudentTableNumber(indeks)] == null;
     }
 
-    public boolean isStudenBaseFull(){
-        return Student.getNumber_id()!=MAX_STUDENT;
+    public boolean isStudentBaseFull(){
+        return Student.getNumber_id()==MAX_STUDENT;
     }
 }
 
