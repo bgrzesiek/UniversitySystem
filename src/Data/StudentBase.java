@@ -8,7 +8,9 @@ public class StudentBase {
 
     public void AddStudent(Student student) {
         students[Student.getNumber_id()] = student;
-        System.out.println("Pomyślnie dodano do bazy nowego studenta " + students[Student.getNumber_id()].getName() + " " + students[Student.getNumber_id()].getLastName());
+        System.out.println("Pomyślnie dodano do bazy nowego studenta " +
+                students[Student.getNumber_id()].getName() + " " +
+                students[Student.getNumber_id()].getLastName());
         System.out.println();
         Student.setNumber_id(Student.getNumber_id() + 1);
         Student.setIndex_Count(Student.getIndex_Count() + 1);
@@ -46,7 +48,7 @@ public class StudentBase {
         students[getStudentTableNumber(indeks)] = null;
         do
         {   //Zlikwidowanie komórki null po usunieciu danego studenta poprzez przesuniecie wpisow z wyższych komórek tablicy do niższych.
-            if (i + 1 == students.length) { //zabezpieczenie przed przekroczeniem wielkości tablicy
+            if (i + 1 == students.length) { //zabezpieczenie przed przekroczeniem wielkości tablicy z 1 komórką
                 break;
             } else
                 students[i] = students[i + 1];
@@ -79,7 +81,7 @@ public class StudentBase {
             do {
                 System.out.println(i + 1 + ". " + "nr indeksu:" + " " + students[i].getIndex() + " " + students[i].getName() + " " + students[i].getLastName());
                 i++;
-                if (i == students.length) {
+                if (i == students.length) { //zabezpieczenie przed przekroczeniem wielkości tablicy
                     break;
                 }
             } while (students[i] != null);
