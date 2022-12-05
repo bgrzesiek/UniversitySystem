@@ -71,19 +71,24 @@ public class UniversitySystemControl {
     }
 
     private void renameStudent() {
-        int indeks = getIndeks();
-        studentBase.areYouSureRenameStudent(indeks);
-        String string = dataReader.getInString();
-        switch (string) {
-            case "t":
-                String newName = dataReader.renameName();
-                String newLastname = dataReader.renameLastname();
-                studentBase.renameStudent(indeks, newName, newLastname);
-                System.out.println("Zmieniono dane studenta");
-                System.out.println();
-                break;
-            case "n":
-               processResigned();
+        if (isStudentListNull()) {
+            System.out.println("Lista studentów jest pusta");
+            System.out.println();
+        } else {
+            int indeks = getIndeks();
+            studentBase.areYouSureRenameStudent(indeks);
+            String string = dataReader.getInString();
+            switch (string) {
+                case "t":
+                    String newName = dataReader.renameName();
+                    String newLastname = dataReader.renameLastname();
+                    studentBase.renameStudent(indeks, newName, newLastname);
+                    System.out.println("Zmieniono dane studenta");
+                    System.out.println();
+                    break;
+                case "n":
+                    processResigned();
+            }
         }
     }
     private void deleteStudent(){
